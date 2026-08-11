@@ -5,7 +5,7 @@
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@ body {
 .calculator {
   width: 320px;
   padding: 20px;
-  background-color: #366e60;
+  background-color: #326b5d;
   border-radius: 15px;
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import "./From.css";
+import "./Form.css";
 function Form() {
     const [formData, SetfromData] = useState({
         name: "",
@@ -65,79 +65,104 @@ function Form() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-    const ValidationErrors=ValidateForm();
-    SetError(ValidationErrors);
-    
-    if(Object.keys(ValidationErrors).
-    length===0){
-        console.log("successfull");
-        console.log(formData);
-         setSuccess("Registration Successful!");
-    }
-};
+
+        const ValidationErrors = ValidateForm();
+        SetError(ValidationErrors);
+
+        if (Object.keys(ValidationErrors).
+            length === 0) {
+            console.log("successfull");
+            console.log(formData);
+            setSuccess("Registration Successful!");
+        }
+    };
 
 
 
 
     return (<>
-        <h1>Registration Form</h1>
-        <label>Name</label>
-        <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            placeholder="Name"
-        />
-        <label>Email:</label>
-        <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            placeholder="Email"
-        />
-        <label>Password:</label>
-        <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            placeholder="password"
-        />
-        <label>Confirm Passwrod</label>
-        <input
-            type="password"
-            name="confirmPassword"
-            onChange={handleChange}
-            placeholder="confirm Password"
-        />
-        <label>Phone No.</label>
-        <input
-            type="number"
-            name="phone"
-            onChange={handleChange}
-            placeholder="phone Number"
-        />
-        <label>Age</label>
-        <input
-            type="number"
-            name="age"
-            onChange={handleChange}
-            placeholder="Age"
-        />
-        <form onSubmit={handleSubmit}>
-        
-            <button className="btn" type="submit">
-                Register
-            </button>
-            </form>
-            {error.name &&(<p>{error.name}</p>)}
-            {error.email &&(<p>{error.email}</p>)}
-            {error.password &&(<p>{error.password}</p>)}
-            {error.confirmPassword &&(<p>{error.confirmPassword}</p>)}
-            {error.phone && (<p>{error.phone}</p>)}
-            {error.age && (<p>{error.age}</p>)}
-            {success && <p>{success}</p>}
-        
+        <div className="form_container">
+            <h1 className="heading">Registration Form</h1>
+            <div className="form_row">
+                <div className="Sublevel">
+                    <label>Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        placeholder=" Enter your full Name" required
+                    />
+                </div>
+                <div className="Sublevel">
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                        placeholder=" Enter your Email" required
+                    />
+                </div>
+                <div className="Sublevel">
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        placeholder="password" required
+                    />
+                </div>
+                <div className="Sublevel">
+                    <label>Confirm Passwrod</label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        onChange={handleChange}
+                        placeholder="confirm Password" required
+                    />
+                </div>
+                <div className="Sublevel">
+                    <label>Phone No.:</label>
+                    <input
+                        type="tel"
+                        name="phone"
+                        onChange={handleChange}
+                        placeholder="phone Number" required
+                    />
+                </div>
+                <div className="Sublevel">
+                    <label>Age:</label>
+                    <input
+                        type="tel"
+                        name="age"
+                        onChange={handleChange}
+                        placeholder="Age" required
+                    />
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="button">
+                        <button className="btn" type="submit">
+                            Register
+                        </button>
+                    </div>
+                </form>
+                {error.name && (<p>{error.name}</p>)}
+                {error.email && (<p>{error.email}</p>)}
+                {error.password && (<p>{error.password}</p>)}
+                {error.confirmPassword && (<p>{error.confirmPassword}</p>)}
+                {error.phone && (<p>{error.phone}</p>)}
+                {error.age && (<p>{error.age}</p>)}
+                {success && (
+                    <p className="success">
+                        ✓ {success}
+                    </p>
+                )}
+                {error.name && <p className="error">❌ {error.name}</p>}
+                {error.password && <p className="error">❌ {error.password}</p>}
+                {error.confirmPassword && <p className="error">❌ {error.confirmPassword}</p>}
+                {error.phone && <p className="error">❌ {error.phone}</p>}
+                {error.age && <p className="error">❌ {error.age}</p>}
+            </div>
+        </div>
     </>)
 }
 export default Form;

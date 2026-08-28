@@ -116,11 +116,11 @@ function MusicPlayer() {
                 </div>
 
 
-                {/* Progress Section */}
+               
 
                 <div className="progress-container">
 
-                    {/* Volume Icon */}
+                   
 
                     <div className="volume-container">
 

@@ -90,3 +90,37 @@
     color: #9999a8;
     font-size: 14px;
 }
+.playlist-play-btn {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #ff2f92;
+    color: white;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.playlist-play-btn svg {
+    width: 20px;
+    height: 20px;
+}
+@media (max-width: 900px) {
+
+    .playlist-cards {
+        flex-wrap: wrap;
+    }
+
+}

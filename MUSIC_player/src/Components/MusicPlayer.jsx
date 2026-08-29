@@ -1,5 +1,6 @@
 import "./MusicPlayer.css";
 import DriveImage from "../assets/Drive-image.jpg";
+import song from "../assets/music/Rabba.mp3";
 
 import {
     SkipBack,
@@ -10,29 +11,20 @@ import {
 
 import { FaVolumeUp } from "react-icons/fa";
 
-import song from "../assets/music/Rabba.mp3";
-
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 
-function MusicPlayer() {
+function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }) {
 
     const audioRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    useEffect(() => {
 
+        if (selectedSong && audioRef.current) {
 
-
-    const handlePlay = () => {
-
-        if (isPlaying) {
-
-            audioRef.current.pause();
-
-            setIsPlaying(false);
-
-        } else {
+            audioRef.current.load();
 
             audioRef.current.play();
 
@@ -40,52 +32,83 @@ function MusicPlayer() {
 
         }
 
+    }, [selectedSong]);
+
+
+    const handlePlay = () => {
+
+        if (isPlaying) {
+
+            audioRef.current.pause();
+            setIsPlaying(false);
+
+        } else {
+
+            audioRef.current.play();
+            setIsPlaying(true);
+
+        }
+
     };
-    const [duration, setDuration] = useState(0);
+
+
     const handleTimeUpdate = () => {
+
         setCurrentTime(audioRef.current.currentTime);
+
     };
+
+
     const handleLoadedMetadata = () => {
+
         setDuration(audioRef.current.duration);
+
     };
+
+
     const formatTime = (time) => {
+
         const minutes = Math.floor(time / 60);
+
         const seconds = Math.floor(time % 60);
 
         return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-    };
-    const handleProgressChange = (e) => {
-    const newTime = Number(e.target.value);
 
-    audioRef.current.currentTime = newTime;
-    setCurrentTime(newTime);
-};
+    };
+
+
+    const handleProgressChange = (e) => {
+
+        const newTime = Number(e.target.value);
+
+        audioRef.current.currentTime = newTime;
+
+        setCurrentTime(newTime);
+
+    };
+
 
     return (
         <>
 
             <div className="player-main-container">
 
-                {/* Album Image */}
-
                 <div className="player-image">
 
                     <img
-                        src={DriveImage}
+                        src={selectedPlaylist?.image || DriveImage}
                         alt="cover"
                     />
 
                 </div>
 
 
-                {/* Song Information */}
-
                 <h1 className="Player-heading">
-                    Midnight Drive, VibeFlow Artist
+                    {selectedPlaylist?.title || "Midnight Drive"}
+                    <br />
+                    VibeFlow Artist
                 </h1>
 
-
-                {/* Player Controls */}
 
                 <div className="player-controls">
 
@@ -116,11 +139,7 @@ function MusicPlayer() {
                 </div>
 
 
-               
-
                 <div className="progress-container">
-
-                   
 
                     <div className="volume-container">
 
@@ -135,13 +154,13 @@ function MusicPlayer() {
 
 
                     <input
-    type="range"
-    className="progress-bar"
-    min="0"
-    max={duration}
-    value={currentTime}
-    onChange={handleProgressChange}
-/>
+                        type="range"
+                        className="progress-bar"
+                        min="0"
+                        max={duration}
+                        value={currentTime}
+                        onChange={handleProgressChange}
+                    />
 
 
                     <span className="time-btn">
@@ -151,11 +170,11 @@ function MusicPlayer() {
                 </div>
 
 
-                {/* Actual Audio */}
+                {/* AUDIO */}
 
                 <audio
                     ref={audioRef}
-                    src={song}
+                    src={selectedSong || song}
                     preload="metadata"
                     onTimeUpdate={handleTimeUpdate}
                     onLoadedMetadata={handleLoadedMetadata}

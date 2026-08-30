@@ -1,0 +1,18 @@
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background-color: #222;
+    color: white;
+}
+
+.Navbar-logo {
+    margin: 0;
+    font-size: 24px;
+}
+
+.Navbar-cart {
+    font-size: 18px;
+    font-weight: bold;
+}

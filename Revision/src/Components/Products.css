@@ -1,0 +1,41 @@
+.products-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    padding: 40px;
+}
+
+.products-card {
+    width: 220px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.products-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.products-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.products-btn {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #222;
+    color: white;
+}
+
+.products-btn:hover {
+    opacity: 0.8;
+}

@@ -1,6 +1,6 @@
 import "./MusicPlayer.css";
+
 import DriveImage from "../assets/Drive-image.jpg";
-import song from "../assets/music/Rabba.mp3";
 
 import {
     SkipBack,
@@ -13,18 +13,34 @@ import { FaVolumeUp } from "react-icons/fa";
 
 import { useRef, useState, useEffect } from "react";
 
+import songs from "../Song";
 
-function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }) {
+
+function MusicPlayer({
+    isPlaying,
+    setIsPlaying,
+    selectedSong,
+    selectedPlaylist,
+    selectedIndex,
+    setSelectedIndex
+}) {
 
     const audioRef = useRef(null);
 
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [volume, setVolume] = useState(1);
+
+
+
+
     useEffect(() => {
 
         if (selectedSong && audioRef.current) {
 
             audioRef.current.load();
+
+            setCurrentTime(0);
 
             audioRef.current.play();
 
@@ -35,22 +51,63 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
     }, [selectedSong]);
 
 
+    // Play / Pause
+
     const handlePlay = () => {
 
         if (isPlaying) {
 
             audioRef.current.pause();
+
             setIsPlaying(false);
 
         } else {
 
             audioRef.current.play();
+
             setIsPlaying(true);
 
         }
 
     };
 
+
+    // Next song
+
+    const handleNext = () => {
+
+        if (selectedIndex < songs.length - 1) {
+
+            setSelectedIndex(selectedIndex + 1);
+
+        }
+
+    };
+    const handleSongEnd = () => {
+
+        if (selectedIndex < songs.length - 1) {
+            setSelectedIndex(selectedIndex + 1);
+        } else {
+            setIsPlaying(false);
+        }
+
+    };
+
+
+    // Previous song
+
+    const handlePrevious = () => {
+
+        if (selectedIndex > 0) {
+
+            setSelectedIndex(selectedIndex - 1);
+
+        }
+
+    };
+
+
+    // Current time
 
     const handleTimeUpdate = () => {
 
@@ -59,6 +116,8 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
     };
 
 
+    // Song duration
+
     const handleLoadedMetadata = () => {
 
         setDuration(audioRef.current.duration);
@@ -66,16 +125,22 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
     };
 
 
+    // Format time
+
     const formatTime = (time) => {
 
         const minutes = Math.floor(time / 60);
 
         const seconds = Math.floor(time % 60);
 
-        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        return `${minutes}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
 
     };
 
+
+    // Progress bar
 
     const handleProgressChange = (e) => {
 
@@ -86,12 +151,24 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
         setCurrentTime(newTime);
 
     };
+   const handleVolumeChange = (e) => {
+
+    const newVolume = Number(e.target.value);
+
+    setVolume(newVolume);
+
+    audioRef.current.volume = newVolume;
+
+};
 
 
     return (
         <>
 
             <div className="player-main-container">
+
+
+                {/* Album Image */}
 
                 <div className="player-image">
 
@@ -103,43 +180,76 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
                 </div>
 
 
+                {/* Song Information */}
+
                 <h1 className="Player-heading">
+
                     {selectedPlaylist?.title || "Midnight Drive"}
+
                     <br />
-                    VibeFlow Artist
+
+                    {selectedPlaylist?.artist || "VibeFlow Artist"}
+
                 </h1>
 
 
+                {/* Player Controls */}
+
                 <div className="player-controls">
+
+
+                    {/* Previous */}
 
                     <button
                         type="button"
                         className="play-btn"
+                        onClick={handlePrevious}
                     >
+
                         <SkipBack />
+
                     </button>
 
+
+                    {/* Play / Pause */}
 
                     <button
                         type="button"
                         className="play-button"
                         onClick={handlePlay}
                     >
-                        {isPlaying ? <Pause /> : <Play />}
+
+                        {isPlaying ? (
+                            <Pause />
+                        ) : (
+                            <Play />
+                        )}
+
                     </button>
 
+
+                    {/* Next */}
 
                     <button
                         type="button"
                         className="play-skipbtn"
+                        onClick={handleNext}
                     >
+
                         <SkipForward />
+
                     </button>
+
 
                 </div>
 
 
+                {/* Progress */}
+
                 <div className="progress-container">
+
+
+                    {/* Volume */}
 
                     <div className="volume-container">
 
@@ -148,10 +258,16 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
                     </div>
 
 
+                    {/* Current Time */}
+
                     <span className="time-btn">
+
                         {formatTime(currentTime)}
+
                     </span>
 
+
+                    {/* Progress Bar */}
 
                     <input
                         type="range"
@@ -163,21 +279,27 @@ function MusicPlayer({ isPlaying, setIsPlaying, selectedSong, selectedPlaylist }
                     />
 
 
+                    {/* Duration */}
+
                     <span className="time-btn">
+
                         {formatTime(duration)}
+
                     </span>
+
 
                 </div>
 
 
-                {/* AUDIO */}
+                {/* Audio */}
 
                 <audio
                     ref={audioRef}
-                    src={selectedSong || song}
+                    src={selectedSong}
                     preload="metadata"
                     onTimeUpdate={handleTimeUpdate}
                     onLoadedMetadata={handleLoadedMetadata}
+                    onEnded={handleSongEnd}
                 />
 
             </div>

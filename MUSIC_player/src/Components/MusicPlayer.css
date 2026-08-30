@@ -270,16 +270,10 @@
 
 
 .volume-bar {
-   width: 80px;
-   height: 30px;
-
-    appearance: none;
-
-    background: #353540;
-
-    border-radius: 10px;
-
+     width: 70px;
+    height: 4px;
     cursor: pointer;
+    accent-color: #ff2b91;
 }
 
 

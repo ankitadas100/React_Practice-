@@ -13,6 +13,7 @@ const songs = [
     {
         title: "Chill Vibes",
         artist: "VibeFlow Artist",
+         songName: "Rabba",
         songs: "12 Songs",
         image: ChillImage,
         song: Rabba
@@ -21,6 +22,7 @@ const songs = [
     {
         title: "Focus Time",
         artist: "VibeFlow Artist",
+          songName: "Tune",
         songs: "18 Songs",
         image: FocusImage,
         song: Tune
@@ -29,6 +31,7 @@ const songs = [
     {
         title: "Road Trip",
         artist: "VibeFlow Artist",
+         songName: "Appdai Pode",
         songs: "20 Songs",
         image: RoadImage,
         song: AppdaiPode
@@ -37,6 +40,7 @@ const songs = [
     {
         title: "Romantic Hits",
         artist: "VibeFlow Artist",
+        songName: "Kesariya",
         songs: "15 Songs",
         image: RomanticImage,
         song: Kesariya

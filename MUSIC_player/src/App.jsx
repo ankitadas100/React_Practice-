@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import MusicPlayer from "./Components/MusicPlayer";
 import Playlist from "./Components/Playlist";
+import Artist from "./Components/Artist";
+import Footer from "./Components/Footer";
 import songs from "./Song";
 
 
@@ -28,7 +30,7 @@ function App() {
 
     return (
         <>
-            <Navbar />
+              <Navbar setSelectedSong={setSelectedSong} />
 
             <Hero />
 
@@ -48,6 +50,8 @@ function App() {
                 setSelectedPlaylist={setSelectedPlaylist}
                 setSelectedIndex={setSelectedIndex}
             />
+            <Artist />
+            <Footer/>
         </>
     );
 }

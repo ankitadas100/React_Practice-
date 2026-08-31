@@ -96,6 +96,9 @@ letter-spacing: 1px;
 
 
 .end {
+     border: none;
+   
+    font-family: inherit;
     display: inline-block;
 
     padding: 14px 28px;
@@ -159,4 +162,49 @@ letter-spacing: 1px;
     filter:
         drop-shadow(0 0 20px rgba(255, 47, 146, 0.25))
         drop-shadow(0 0 40px rgba(120, 50, 255, 0.2));
+}
+@media (max-width: 768px) {
+
+    .hero_outer_container {
+        flex-direction: column;
+        min-height: auto;
+        padding: 50px 20px;
+        gap: 40px;
+    }
+
+    .mainbox {
+        width: 100%;
+        text-align: center;
+    }
+
+    .head {
+        font-size: 16px;
+    }
+
+    .subhead {
+        font-size: 42px;
+        line-height: 1.1;
+    }
+
+    .des {
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+    .end {
+        margin-top: 25px;
+        font-size: 15px;
+    }
+
+    .hero_image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero_image img {
+        width: 75%;
+        max-width: 350px;
+        height: auto;
+    }
 }

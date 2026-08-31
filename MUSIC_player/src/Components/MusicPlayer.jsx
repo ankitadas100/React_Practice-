@@ -9,7 +9,7 @@ import {
     SkipForward
 } from "lucide-react";
 
-import { FaVolumeUp } from "react-icons/fa";
+import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -30,6 +30,7 @@ function MusicPlayer({
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(1);
+    const [isMuted, setIsMuted] = useState(false);
 
 
 
@@ -151,15 +152,30 @@ function MusicPlayer({
         setCurrentTime(newTime);
 
     };
-   const handleVolumeChange = (e) => {
+    const handleVolumeChange = (e) => {
 
-    const newVolume = Number(e.target.value);
+        const newVolume = Number(e.target.value);
 
-    setVolume(newVolume);
+        setVolume(newVolume);
 
-    audioRef.current.volume = newVolume;
+        audioRef.current.volume = newVolume;
 
-};
+    };
+    const handleMute = () => {
+
+        if (isMuted) {
+
+            audioRef.current.volume = volume;
+            setIsMuted(false);
+
+        } else {
+
+            audioRef.current.volume = 0;
+            setIsMuted(true);
+
+        }
+
+    };
 
 
     return (
@@ -251,11 +267,13 @@ function MusicPlayer({
 
                     {/* Volume */}
 
-                    <div className="volume-container">
-
-                        <FaVolumeUp />
-
-                    </div>
+                    <button
+                        type="button"
+                        className="volume-button"
+                        onClick={handleMute}
+                    >
+                        {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+                    </button>
 
 
                     {/* Current Time */}

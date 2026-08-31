@@ -9,7 +9,17 @@ function Hero() {
                 <span className="subhead">    every mood.  </span>
                 <p className="des"> Discover your favorite songs,</p>
                 <p className="des">artists and playlists.</p>
-                <div className="end"> [ ▶ Start Listening ]  </div>
+                <button
+                    className="end"
+                    type="button"
+                    onClick={() => {
+                        document
+                            .querySelector(".player-main-container")
+                            ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                >
+                    [ ▶ Start Listening ]
+                </button>
             </div>
             <div className="hero_image">
                 <img src={Graphic_image} alt="Music" />
